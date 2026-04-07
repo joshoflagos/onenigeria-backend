@@ -3,11 +3,11 @@ import {
   AccountId,
   AccountRepository,
   EmailAddress,
-} from "@odysseon/whoami-core";
-import { PrismaService } from "../../prisma.service";
+} from '@odysseon/whoami-core';
+import { PrismaService } from '../../prisma.service';
 
 export class PrismaAccountRepository implements AccountRepository {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async save(account: Account): Promise<void> {
     await this.prisma.account.upsert({
@@ -34,10 +34,8 @@ export class PrismaAccountRepository implements AccountRepository {
   }
 
   async delete(id: AccountId): Promise<void> {
-    await this.prisma.account
-      .delete({ where: { id: id.value } })
-      .catch(() => {
-        // treat missing record as no-op (idempotent)
-      });
+    await this.prisma.account.delete({ where: { id: id.value } }).catch(() => {
+      // treat missing record as no-op (idempotent)
+    });
   }
 }

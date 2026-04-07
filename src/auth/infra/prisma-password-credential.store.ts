@@ -1,15 +1,15 @@
-import type { Credential as PrismaCredential } from "../../generated/prisma/client";
+import type { Credential as PrismaCredential } from '../../generated/prisma/client';
 import {
   Credential,
   CredentialId,
   AccountId,
   EmailAddress,
   PasswordCredentialStore,
-} from "@odysseon/whoami-core";
-import { PrismaService } from "../../prisma.service";
+} from '@odysseon/whoami-core';
+import { PrismaService } from '../../prisma.service';
 
 function toDomain(row: PrismaCredential): Credential {
-  if (row.kind !== "password" || row.hash === null) {
+  if (row.kind !== 'password' || row.hash === null) {
     throw new Error(
       `PrismaPasswordCredentialStore: expected password row, got kind="${row.kind}" id="${row.id}"`,
     );
@@ -17,17 +17,17 @@ function toDomain(row: PrismaCredential): Credential {
   return Credential.loadExisting({
     id: new CredentialId(row.id),
     accountId: new AccountId(row.accountId),
-    proof: { kind: "password", hash: row.hash },
+    proof: { kind: 'password', hash: row.hash },
   });
 }
 
 export class PrismaPasswordCredentialStore implements PasswordCredentialStore {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async findByEmail(email: EmailAddress): Promise<Credential | null> {
     const row = await this.prisma.credential.findFirst({
       where: {
-        kind: "password",
+        kind: 'password',
         account: { email: email.value },
       },
     });
@@ -36,7 +36,7 @@ export class PrismaPasswordCredentialStore implements PasswordCredentialStore {
 
   async findByAccountId(accountId: AccountId): Promise<Credential | null> {
     const row = await this.prisma.credential.findFirst({
-      where: { accountId: accountId.value, kind: "password" },
+      where: { accountId: accountId.value, kind: 'password' },
     });
     return row ? toDomain(row) : null;
   }
@@ -47,7 +47,7 @@ export class PrismaPasswordCredentialStore implements PasswordCredentialStore {
       create: {
         id: credential.id.value,
         accountId: credential.accountId.value,
-        kind: "password",
+        kind: 'password',
         hash: credential.passwordHash,
       },
       update: {
@@ -59,18 +59,18 @@ export class PrismaPasswordCredentialStore implements PasswordCredentialStore {
   async delete(credentialId: CredentialId): Promise<void> {
     await this.prisma.credential
       .delete({ where: { id: credentialId.value } })
-      .catch(() => { });
+      .catch(() => {});
   }
 
   async deleteByAccountId(accountId: AccountId): Promise<void> {
     await this.prisma.credential.deleteMany({
-      where: { accountId: accountId.value, kind: "password" },
+      where: { accountId: accountId.value, kind: 'password' },
     });
   }
 
   async existsForAccount(accountId: AccountId): Promise<boolean> {
     const count = await this.prisma.credential.count({
-      where: { accountId: accountId.value, kind: "password" },
+      where: { accountId: accountId.value, kind: 'password' },
     });
     return count > 0;
   }

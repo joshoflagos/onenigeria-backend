@@ -1,15 +1,15 @@
-import type { Credential as PrismaCredential } from "../../generated/prisma/client";
+import type { Credential as PrismaCredential } from '../../generated/prisma/client';
 import {
   Credential,
   CredentialId,
   AccountId,
   OAuthCredentialStore,
-} from "@odysseon/whoami-core";
-import { PrismaService } from "../../prisma.service";
+} from '@odysseon/whoami-core';
+import { PrismaService } from '../../prisma.service';
 
 function toDomain(row: PrismaCredential): Credential {
   if (
-    row.kind !== "oauth" ||
+    row.kind !== 'oauth' ||
     row.provider === null ||
     row.providerId === null
   ) {
@@ -20,12 +20,16 @@ function toDomain(row: PrismaCredential): Credential {
   return Credential.loadExisting({
     id: new CredentialId(row.id),
     accountId: new AccountId(row.accountId),
-    proof: { kind: "oauth", provider: row.provider, providerId: row.providerId },
+    proof: {
+      kind: 'oauth',
+      provider: row.provider,
+      providerId: row.providerId,
+    },
   });
 }
 
 export class PrismaOAuthCredentialStore implements OAuthCredentialStore {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async findByProvider(
     provider: string,
@@ -39,7 +43,7 @@ export class PrismaOAuthCredentialStore implements OAuthCredentialStore {
 
   async findAllByAccountId(accountId: AccountId): Promise<Credential[]> {
     const rows = await this.prisma.credential.findMany({
-      where: { accountId: accountId.value, kind: "oauth" },
+      where: { accountId: accountId.value, kind: 'oauth' },
     });
     return rows.map(toDomain);
   }
@@ -50,7 +54,7 @@ export class PrismaOAuthCredentialStore implements OAuthCredentialStore {
       create: {
         id: credential.id.value,
         accountId: credential.accountId.value,
-        kind: "oauth",
+        kind: 'oauth',
         provider: credential.oauthProvider,
         providerId: credential.oauthProviderId,
       },
@@ -64,24 +68,27 @@ export class PrismaOAuthCredentialStore implements OAuthCredentialStore {
   async delete(credentialId: CredentialId): Promise<void> {
     await this.prisma.credential
       .delete({ where: { id: credentialId.value } })
-      .catch(() => { });
+      .catch(() => {});
   }
 
-  async deleteByProvider(accountId: AccountId, provider: string): Promise<void> {
+  async deleteByProvider(
+    accountId: AccountId,
+    provider: string,
+  ): Promise<void> {
     await this.prisma.credential.deleteMany({
-      where: { accountId: accountId.value, kind: "oauth", provider },
+      where: { accountId: accountId.value, kind: 'oauth', provider },
     });
   }
 
   async deleteAllForAccount(accountId: AccountId): Promise<void> {
     await this.prisma.credential.deleteMany({
-      where: { accountId: accountId.value, kind: "oauth" },
+      where: { accountId: accountId.value, kind: 'oauth' },
     });
   }
 
   async existsForAccount(accountId: AccountId): Promise<boolean> {
     const count = await this.prisma.credential.count({
-      where: { accountId: accountId.value, kind: "oauth" },
+      where: { accountId: accountId.value, kind: 'oauth' },
     });
     return count > 0;
   }

@@ -18,7 +18,7 @@ async function bootstrap(): Promise<void> {
 
   const configService = app.get(ConfigService);
 
-  app.setGlobalPrefix(configService.get('GLOBAL_PREFIX') as string);
+  app.setGlobalPrefix(configService.getOrThrow<string>('GLOBAL_PREFIX'));
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -33,7 +33,7 @@ async function bootstrap(): Promise<void> {
   SwaggerSetup.register(app);
   app.enableCors();
 
-  const port = configService.get('PORT', 3000) as number;
+  const port = configService.get<number>('PORT') ?? 3000;
   await app.listen(port);
   logNetworkAddresses(app, port);
 }

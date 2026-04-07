@@ -1,27 +1,17 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
-import {
-  WhoamiAuthGuard,
-} from '@odysseon/whoami-adapter-nestjs';
-import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
+import { IdentityModule } from './auth/identity.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
+    IdentityModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_GUARD,
-      useClass: WhoamiAuthGuard,
-    },
-  ],
+  providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
