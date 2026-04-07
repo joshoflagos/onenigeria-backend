@@ -7,18 +7,16 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as os from 'os';
-
-import { AppModule } from '@modules/app.module';
-import { AllExceptionsFilter } from '@infrastructure/http/all-exceptions.filter';
-import { SwaggerSetup } from '@configs/swagger.config';
-import { AppConfig } from '@configs/validation';
+import { AllExceptionsFilter } from './filters';
+import { SwaggerSetup } from './configs/swagger.config';
+import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
     logger: new ConsoleLogger({ json: true, colors: true }),
   });
 
-  const configService = app.get(ConfigService<AppConfig>);
+  const configService = app.get(ConfigService);
 
   app.setGlobalPrefix(configService.get('GLOBAL_PREFIX') as string);
 
@@ -35,7 +33,7 @@ async function bootstrap(): Promise<void> {
   SwaggerSetup.register(app);
   app.enableCors();
 
-  const port = configService.get('PORT') as number;
+  const port = configService.get('PORT', 3000) as number;
   await app.listen(port);
   logNetworkAddresses(app, port);
 }
