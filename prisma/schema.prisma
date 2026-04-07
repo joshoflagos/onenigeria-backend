@@ -11,3 +11,27 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Account {
+  id          String       @id
+  email       String       @unique
+  createdAt   DateTime     @default(now())
+  credentials Credential[]
+}
+
+model Credential {
+  id         String  @id
+  accountId  String
+  kind       String
+  // password fields
+  hash       String?
+  // oauth fields
+  provider   String? // "google" | "github" etc. — null for password rows
+  providerId String? // provider sub claim — null for password rows
+
+  createdAt DateTime @default(now())
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerId])
+  @@index([accountId])
+}
