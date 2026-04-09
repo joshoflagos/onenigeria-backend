@@ -6,15 +6,15 @@ import {
   Req,
   Res,
   UseGuards,
+  Inject,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Public } from '@odysseon/whoami-adapter-nestjs';
 import {
-  AuthenticateWithPasswordUseCase,
-  Receipt,
-  RegisterWithPasswordUseCase,
-} from '@odysseon/whoami-core';
+  Public,
+  AUTH_METHODS,
+} from '@odysseon/whoami-adapter-nestjs';
+import type { AuthMethods, Receipt } from '@odysseon/whoami-core';
 import type { Request, Response } from 'express';
 import { LoginDto, RegisterDto, TokenResponseDto } from '../dto/auth.dto';
 
@@ -22,15 +22,14 @@ import { LoginDto, RegisterDto, TokenResponseDto } from '../dto/auth.dto';
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly registerWithPassword: RegisterWithPasswordUseCase,
-    private readonly authenticateWithPassword: AuthenticateWithPasswordUseCase,
-  ) {}
+    @Inject(AUTH_METHODS) private readonly auth: AuthMethods,
+  ) { }
 
   @Public()
   @Post('register')
   @ApiOperation({ summary: 'Register with email + password' })
   async register(@Body() dto: RegisterDto): Promise<TokenResponseDto> {
-    const receipt = await this.registerWithPassword.execute({
+    const receipt = await this.auth.registerWithPassword!({
       email: dto.email,
       password: dto.password,
     });
@@ -41,7 +40,7 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: 'Login with email + password' })
   async login(@Body() dto: LoginDto): Promise<TokenResponseDto> {
-    const receipt = await this.authenticateWithPassword.execute({
+    const receipt = await this.auth.authenticateWithPassword!({
       email: dto.email,
       password: dto.password,
     });
@@ -60,7 +59,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   @ApiOperation({ summary: 'Google OAuth callback' })
-  googleCallback(@Req() req: Request, @Res() res: Response): void {
+  async googleCallback(@Req() req: Request, @Res() res: Response): Promise<void> {
     const receipt = req.user as Receipt;
     res.json({ token: receipt.token });
   }
