@@ -25,7 +25,6 @@ import { createWhoamiOptions } from './auth-config.factory';
   ],
   controllers: [AuthController],
   providers: [
-    OAuthCallbackHandler,
     GoogleStrategy,
     {
       provide: APP_GUARD,
@@ -36,8 +35,5 @@ import { createWhoamiOptions } from './auth-config.factory';
       useClass: WhoamiExceptionFilter,
     },
   ],
-  exports: [
-    WhoamiModule,
-  ],
 })
-export class AuthModule { }
+export class AuthModule {}

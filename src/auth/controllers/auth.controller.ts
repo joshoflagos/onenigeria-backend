@@ -10,10 +10,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import {
-  Public,
-  AUTH_METHODS,
-} from '@odysseon/whoami-adapter-nestjs';
+import { Public, AUTH_METHODS } from '@odysseon/whoami-adapter-nestjs';
 import type { AuthMethods, Receipt } from '@odysseon/whoami-core';
 import type { Request, Response } from 'express';
 import { LoginDto, RegisterDto, TokenResponseDto } from '../dto/auth.dto';
@@ -21,9 +18,7 @@ import { LoginDto, RegisterDto, TokenResponseDto } from '../dto/auth.dto';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(
-    @Inject(AUTH_METHODS) private readonly auth: AuthMethods,
-  ) { }
+  constructor(@Inject(AUTH_METHODS) private readonly auth: AuthMethods) {}
 
   @Public()
   @Post('register')
@@ -59,7 +54,10 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   @ApiOperation({ summary: 'Google OAuth callback' })
-  async googleCallback(@Req() req: Request, @Res() res: Response): Promise<void> {
+  async googleCallback(
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<void> {
     const receipt = req.user as Receipt;
     res.json({ token: receipt.token });
   }
