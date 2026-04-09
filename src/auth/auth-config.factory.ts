@@ -5,7 +5,7 @@ import {
 import { Argon2PasswordHasher } from '@odysseon/whoami-adapter-argon2';
 import {
   IssueReceiptUseCase,
-  VerifyReceiptUseCase
+  VerifyReceiptUseCase,
 } from '@odysseon/whoami-core/internal';
 import { PrismaAccountRepository } from './infra/prisma-account.repository';
 import { PrismaPasswordCredentialStore } from './infra/prisma-password-credential.store';
@@ -26,7 +26,10 @@ export const createWhoamiOptions = async (
   const hasher = new Argon2PasswordHasher();
 
   const joseSecret = configService.getOrThrow<string>('JOSE_SECRET');
-  const tokenLifespanMinutes = configService.get<number>('TOKEN_LIFESPAN_MINUTES', 60);
+  const tokenLifespanMinutes = configService.get<number>(
+    'TOKEN_LIFESPAN_MINUTES',
+    60,
+  );
 
   const signer = new JoseReceiptSigner({
     secret: joseSecret,
@@ -55,5 +58,4 @@ export const createWhoamiOptions = async (
       oauthStore,
     },
   };
-}
-
+};
