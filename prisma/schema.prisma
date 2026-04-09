@@ -14,10 +14,11 @@ datasource db {
 }
 
 model Account {
-  id          String       @id
-  email       String       @unique
-  createdAt   DateTime     @default(now())
-  credentials Credential[]
+  id             String          @id
+  email          String          @unique
+  createdAt      DateTime        @default(now())
+  credentials    Credential[]
+  oneNigeriaUser OneNigeriaUser? // 1:1 relation (optional because user may not have onboarded yet)
 }
 
 model Credential {
@@ -35,4 +36,49 @@ model Credential {
 
   @@unique([provider, providerId])
   @@index([accountId])
+}
+
+model OneNigeriaUser {
+  id        String  @id @default(cuid())
+  accountId String  @unique
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  // Onboarding fields (from old TypeORM entity)
+  avatar               String?
+  fullname             String?
+  username             String?   @unique
+  phone1               String?
+  phone2               String?
+  dob                  DateTime? @db.Date
+  ward                 String?
+  pollingUnit          String?
+  neighborhood         String?
+  nationIssueMaterials String[]
+
+  // Verification fields (OTP – could be moved to a separate flow if needed)
+  isVerified       Boolean   @default(false)
+  onboarded        Boolean   @default(false)
+  otp              String?
+  otpExpiry        DateTime?
+  resetToken       String?
+  resetTokenExpiry DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("one_nigeria_users")
+}
+
+model Party {
+  id            String    @id @default(cuid())
+  name          String    @unique
+  acronym       String    @unique
+  slogan        String
+  founded       DateTime? @db.Date
+  founder       String
+  currentChair  String
+  chairContacts String[]
+  isActive      Boolean   @default(true)
+
+  @@map("parties")
 }
