@@ -27,20 +27,20 @@ importers:
         specifier: ^11.2.6
         version: 11.2.6(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)
       '@odysseon/whoami-adapter-argon2':
-        specifier: ^8.0.0
-        version: 8.0.0(@odysseon/whoami-core@5.0.0)
+        specifier: 0.0.0-dev-20260408132748
+        version: 0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)
       '@odysseon/whoami-adapter-jose':
-        specifier: ^8.0.0
-        version: 8.0.0(@odysseon/whoami-core@5.0.0)
+        specifier: 0.0.0-dev-20260408132748
+        version: 0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)
       '@odysseon/whoami-adapter-nestjs':
-        specifier: ^7.1.0
-        version: 7.1.0(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(@odysseon/whoami-core@5.0.0)
+        specifier: 0.0.0-dev-20260408132748
+        version: 0.0.0-dev-20260408132748(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(@odysseon/whoami-core@0.0.0-dev-20260408132748)
       '@odysseon/whoami-adapter-webcrypto':
-        specifier: ^8.0.0
-        version: 8.0.0(@odysseon/whoami-core@5.0.0)
+        specifier: 0.0.0-dev-20260408132748
+        version: 0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)
       '@odysseon/whoami-core':
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: 0.0.0-dev-20260408132748
+        version: 0.0.0-dev-20260408132748
       '@paralleldrive/cuid2':
         specifier: ^3.3.0
         version: 3.3.0
@@ -844,34 +844,34 @@ packages:
     engines: {node: ^14.18.0 || >=16.10.0, npm: '>=5.10.0'}
     hasBin: true
 
-  '@odysseon/whoami-adapter-argon2@8.0.0':
-    resolution: {integrity: sha512-u8GPE12G1gcYNv95xzPe4mnudjR4Yv+v707TX7LDcWNGw0w8JYN59yfZ73Hbg64JqC6gNy7gqQHBWtSg8eDhDA==}
+  '@odysseon/whoami-adapter-argon2@0.0.0-dev-20260408132748':
+    resolution: {integrity: sha512-EWaMELtlySBtHc6Y+ATPXAWpCJAk28kFwAIbhTQRe8D1jdB6RA0mTJSI05sbSvUvl+larm4ISNOdx4pTKEgqjA==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
-      '@odysseon/whoami-core': ^5.0.0
+      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
 
-  '@odysseon/whoami-adapter-jose@8.0.0':
-    resolution: {integrity: sha512-T4ozXek20EuG5AeppO0Rbt+XUrheRoAkngKABkuMrGsIcsG9v3BjEcu4JIvdYvaspXGUqtf11Z7ijXidJNNgMQ==}
+  '@odysseon/whoami-adapter-jose@0.0.0-dev-20260408132748':
+    resolution: {integrity: sha512-jJuRHwS98dsTkOeEf1fMbRL+2yrhaoimeJ3AFHPKYUl0YJocvulB7Bha/1kiRVpcQIZfBfQBbA7o88JF+RfPiw==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
-      '@odysseon/whoami-core': ^5.0.0
+      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
 
-  '@odysseon/whoami-adapter-nestjs@7.1.0':
-    resolution: {integrity: sha512-abfHiswfBk+1E9dfdALsQMuqGHkLjcx+1bts9K3+DWgmtlOSgr4Kwrp5a9bnQ+cPpy3qeXNic58c+qyGTOzDLw==}
+  '@odysseon/whoami-adapter-nestjs@0.0.0-dev-20260408132748':
+    resolution: {integrity: sha512-+WDEc116krJHVxPwWxO8C0s/Le8VlPd9fxPMkiMko9R9bYANiX6hXWHz1z7BHiuMPMflPzsuCDcHbCbyRrQzMw==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
       '@nestjs/common': ^11.0.0
       '@nestjs/core': ^11.0.0
-      '@odysseon/whoami-core': ^5.0.0
+      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
 
-  '@odysseon/whoami-adapter-webcrypto@8.0.0':
-    resolution: {integrity: sha512-zhefT7qyU89PfmmPQ7mxS2ZwFeUex/MTl/Nkhu10PGQua0Cjgl+WGb94I986YaTfXTjyuglAh5P9oFaigQ1sfA==}
+  '@odysseon/whoami-adapter-webcrypto@0.0.0-dev-20260408132748':
+    resolution: {integrity: sha512-FeRZZqD9/9zgUsJIv9rwkY2vG5mj9qrm3/sOx1y7opi+vYzJ9aUabNjgkLO4FbhQ2JW7hk2iFbCSiqVRudBBIw==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
-      '@odysseon/whoami-core': ^5.0.0
+      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
 
-  '@odysseon/whoami-core@5.0.0':
-    resolution: {integrity: sha512-5cw/cdSBmjjTRlCndf1gbUa9F+lnYKY3iJTDqxZxrUAdmbYe/+GPLrCYg0zk8cCFKy8/kW55M9Et+8GiR9hAZg==}
+  '@odysseon/whoami-core@0.0.0-dev-20260408132748':
+    resolution: {integrity: sha512-hxZ08AhCDf8YQzqhBfcKkYYSK8txmSlaLcd0gfDndmf2ASdQjbVV2nj+VDIfxpGpENnRjj8v68AIYTcXLc4Kkg==}
     engines: {node: '>=24.0.0'}
 
   '@paralleldrive/cuid2@2.3.1':
@@ -4509,27 +4509,27 @@ snapshots:
     dependencies:
       consola: 3.4.2
 
-  '@odysseon/whoami-adapter-argon2@8.0.0(@odysseon/whoami-core@5.0.0)':
+  '@odysseon/whoami-adapter-argon2@0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)':
     dependencies:
-      '@odysseon/whoami-core': 5.0.0
+      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
       argon2: 0.44.0
 
-  '@odysseon/whoami-adapter-jose@8.0.0(@odysseon/whoami-core@5.0.0)':
+  '@odysseon/whoami-adapter-jose@0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)':
     dependencies:
-      '@odysseon/whoami-core': 5.0.0
+      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
       jose: 6.2.2
 
-  '@odysseon/whoami-adapter-nestjs@7.1.0(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(@odysseon/whoami-core@5.0.0)':
+  '@odysseon/whoami-adapter-nestjs@0.0.0-dev-20260408132748(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(@odysseon/whoami-core@0.0.0-dev-20260408132748)':
     dependencies:
       '@nestjs/common': 11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.18(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.18)(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@odysseon/whoami-core': 5.0.0
+      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
 
-  '@odysseon/whoami-adapter-webcrypto@8.0.0(@odysseon/whoami-core@5.0.0)':
+  '@odysseon/whoami-adapter-webcrypto@0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)':
     dependencies:
-      '@odysseon/whoami-core': 5.0.0
+      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
 
-  '@odysseon/whoami-core@5.0.0': {}
+  '@odysseon/whoami-core@0.0.0-dev-20260408132748': {}
 
   '@paralleldrive/cuid2@2.3.1':
     dependencies:
