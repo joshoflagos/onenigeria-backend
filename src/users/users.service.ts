@@ -1,26 +1,59 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { OnboardingDto } from './dto/onboarding.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { PrismaService } from '../prisma.service';
+import { Prisma } from '../generated/prisma/client';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(private prisma: PrismaService) { }
+
+  async findById(accountId: string) {
+    const user = await this.prisma.oneNigeriaUser.findUnique({
+      where: { accountId },
+    });
+    if (!user) {
+      throw new NotFoundException('User profile not found');
+    }
+    return user;
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async onboard(accountId: string, dto: OnboardingDto) {
+    const data = {
+      ...dto,
+      dob: new Date(dto.dob),
+      onboarded: true,
+    };
+
+    return this.prisma.oneNigeriaUser.upsert({
+      where: { accountId },
+      create: {
+        accountId,
+        ...data,
+      },
+      update: data,
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+  async updateProfile(accountId: string, dto: UpdateProfileDto) {
+    const updateData: Prisma.OneNigeriaUserUpdateInput = {
+      ...dto,
+    };
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
+    if (dto.dob) {
+      updateData.dob = new Date(dto.dob);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+    try {
+      return await this.prisma.oneNigeriaUser.update({
+        where: { accountId },
+        data: updateData,
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+        throw new NotFoundException('User profile not found');
+      }
+      throw error;
+    }
   }
 }
