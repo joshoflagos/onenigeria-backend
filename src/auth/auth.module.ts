@@ -1,8 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import {
-  OAuthCallbackHandler,
   WhoamiAuthGuard,
   WhoamiExceptionFilter,
   WhoamiModule,
@@ -12,9 +11,13 @@ import { GoogleStrategy } from './strategies/google.strategy';
 import { AuthController } from './controllers/auth.controller';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { createWhoamiOptions } from './auth-config.factory';
+import { PrismaPasswordCredentialStore } from './infra/prisma-password-credential.store';
+import { VerificationModule } from '../verification/verification.module';
 
+@Global()
 @Module({
   imports: [
+    VerificationModule,
     ConfigModule,
     PassportModule,
     WhoamiModule.registerAsync({
@@ -34,6 +37,10 @@ import { createWhoamiOptions } from './auth-config.factory';
       provide: APP_FILTER,
       useClass: WhoamiExceptionFilter,
     },
+    PrismaPasswordCredentialStore,
   ],
+  exports: [
+    PrismaPasswordCredentialStore,
+  ]
 })
-export class AuthModule {}
+export class AuthModule { }

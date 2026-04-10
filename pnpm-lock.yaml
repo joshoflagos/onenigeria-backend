@@ -27,20 +27,20 @@ importers:
         specifier: ^11.2.6
         version: 11.2.6(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)
       '@odysseon/whoami-adapter-argon2':
-        specifier: 0.0.0-dev-20260408132748
-        version: 0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)
+        specifier: 10.0.0
+        version: 10.0.0(@odysseon/whoami-core@10.0.0)
       '@odysseon/whoami-adapter-jose':
-        specifier: 0.0.0-dev-20260408132748
-        version: 0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)
+        specifier: 10.0.0
+        version: 10.0.0(@odysseon/whoami-core@10.0.0)
       '@odysseon/whoami-adapter-nestjs':
-        specifier: 0.0.0-dev-20260409102807
-        version: 0.0.0-dev-20260409102807(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(@odysseon/whoami-core@0.0.0-dev-20260408132748)
+        specifier: 10.0.0
+        version: 10.0.0(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(@odysseon/whoami-core@10.0.0)
       '@odysseon/whoami-adapter-webcrypto':
-        specifier: 0.0.0-dev-20260408132748
-        version: 0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)
+        specifier: 10.0.0
+        version: 10.0.0(@odysseon/whoami-core@10.0.0)
       '@odysseon/whoami-core':
-        specifier: 0.0.0-dev-20260408132748
-        version: 0.0.0-dev-20260408132748
+        specifier: 10.0.0
+        version: 10.0.0
       '@paralleldrive/cuid2':
         specifier: ^3.3.0
         version: 3.3.0
@@ -77,6 +77,9 @@ importers:
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
+      resend:
+        specifier: ^6.10.0
+        version: 6.10.0
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -844,34 +847,34 @@ packages:
     engines: {node: ^14.18.0 || >=16.10.0, npm: '>=5.10.0'}
     hasBin: true
 
-  '@odysseon/whoami-adapter-argon2@0.0.0-dev-20260408132748':
-    resolution: {integrity: sha512-EWaMELtlySBtHc6Y+ATPXAWpCJAk28kFwAIbhTQRe8D1jdB6RA0mTJSI05sbSvUvl+larm4ISNOdx4pTKEgqjA==}
+  '@odysseon/whoami-adapter-argon2@10.0.0':
+    resolution: {integrity: sha512-5omQgvUxZtQ77osctMKqza6dSuG2aXkY3tJH90+fBIaTvjdIIfsWmsFnp7zDD0nBkzGY+AeNa/9rCEEWMPZ4jw==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
-      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
+      '@odysseon/whoami-core': 10.0.0
 
-  '@odysseon/whoami-adapter-jose@0.0.0-dev-20260408132748':
-    resolution: {integrity: sha512-jJuRHwS98dsTkOeEf1fMbRL+2yrhaoimeJ3AFHPKYUl0YJocvulB7Bha/1kiRVpcQIZfBfQBbA7o88JF+RfPiw==}
+  '@odysseon/whoami-adapter-jose@10.0.0':
+    resolution: {integrity: sha512-KMo8zD66OUawiFmb/BHajoZsPc7BcI70b+EY62V2ic1KzxRYWCj0SgcOomBWvNuielBTOR6qaSS+bM2W1OLO4A==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
-      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
+      '@odysseon/whoami-core': 10.0.0
 
-  '@odysseon/whoami-adapter-nestjs@0.0.0-dev-20260409102807':
-    resolution: {integrity: sha512-p+4qq7VrFr0Cf4jmSFCN6bWc35EJekCcMvFIniKEUxg/f50zDwcEnfZwDYgYyvVKoHqNDo1E696g37Jc5R6q8g==}
+  '@odysseon/whoami-adapter-nestjs@10.0.0':
+    resolution: {integrity: sha512-GegZObVZqsJm70QdmW5t/buyKr0Y/EdCDM7f49h4RxZqZscr5wfu7T57k55HPZiaUphMk+8iGq0nHeFV7Wcbrw==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
       '@nestjs/common': ^11.0.0
       '@nestjs/core': ^11.0.0
-      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
+      '@odysseon/whoami-core': 10.0.0
 
-  '@odysseon/whoami-adapter-webcrypto@0.0.0-dev-20260408132748':
-    resolution: {integrity: sha512-FeRZZqD9/9zgUsJIv9rwkY2vG5mj9qrm3/sOx1y7opi+vYzJ9aUabNjgkLO4FbhQ2JW7hk2iFbCSiqVRudBBIw==}
+  '@odysseon/whoami-adapter-webcrypto@10.0.0':
+    resolution: {integrity: sha512-7KG7H7GTe+Rf9+EJNP+1mJEmOGWOTIMvFKM9fuM9qE3xRhEdjn94c+q4LdOoAbKRXNzQYQQ4RgRkYbxay1o1Mw==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
-      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
+      '@odysseon/whoami-core': 10.0.0
 
-  '@odysseon/whoami-core@0.0.0-dev-20260408132748':
-    resolution: {integrity: sha512-hxZ08AhCDf8YQzqhBfcKkYYSK8txmSlaLcd0gfDndmf2ASdQjbVV2nj+VDIfxpGpENnRjj8v68AIYTcXLc4Kkg==}
+  '@odysseon/whoami-core@10.0.0':
+    resolution: {integrity: sha512-X8rOb0B9iExVPxL4ITPU9P8kZ1INj5sUM6W0/1xmvqpklI2WnKVHQTcn26h2SMVUlQRI4gRs35th7cVdES0dBQ==}
     engines: {node: '>=24.0.0'}
 
   '@paralleldrive/cuid2@2.3.1':
@@ -1041,6 +1044,9 @@ packages:
 
   '@sinonjs/fake-timers@15.3.0':
     resolution: {integrity: sha512-m2xozxSfCIxjDdvbhIWazlP2i2aha/iUmbl94alpsIbd3iLTfeXgfBVbwyWogB6l++istyGZqamgA/EcqYf+Bg==}
+
+  '@stablelib/base64@1.0.1':
+    resolution: {integrity: sha512-1bnPQqSxSuc3Ii6MhBysoWCg58j97aUjuCSZrGSmDxNqtytIi0k8utUenAwTZN4V5mXXYGsVUI9zeBqy+jBOSQ==}
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -2092,6 +2098,9 @@ packages:
   fast-safe-stringify@2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
+  fast-sha256@1.3.0:
+    resolution: {integrity: sha512-n11RGP/lrWEFI/bWdygLxhI+pVeo1ZYIVwvvPkW7azl/rOy+F3HYRZ2K5zeE9mmkhQppyv9sQFx0JM9UabnpPQ==}
+
   fast-uri@3.1.0:
     resolution: {integrity: sha512-iPeeDKJSWf4IEOasVVrknXpaBV0IApz/gp7S2bb7Z4Lljbl2MGJRqInZiUrQwV16cpzw/D3S5j5Julj/gT52AA==}
 
@@ -2998,6 +3007,9 @@ packages:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
 
+  postal-mime@2.7.4:
+    resolution: {integrity: sha512-0WdnFQYUrPGGTFu1uOqD2s7omwua8xaeYGdO6rb88oD5yJ/4pPHDA4sdWqfD8wQVfCny563n/HQS7zTFft+f/g==}
+
   postgres-array@2.0.0:
     resolution: {integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==}
     engines: {node: '>=4'}
@@ -3117,6 +3129,15 @@ packages:
   require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
+
+  resend@6.10.0:
+    resolution: {integrity: sha512-i7CwZpYj4Oho1RxsTpLcCUkO08+HiL4NXrm6jLJ2WzJ89UGI8eROSieLONJA3hnUrf1OYnCyfq5F6POnHUMv1Q==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@react-email/render': '*'
+    peerDependenciesMeta:
+      '@react-email/render':
+        optional: true
 
   resolve-cwd@3.0.0:
     resolution: {integrity: sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg==}
@@ -3259,6 +3280,9 @@ packages:
     resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}
     engines: {node: '>=10'}
 
+  standardwebhooks@1.0.0:
+    resolution: {integrity: sha512-BbHGOQK9olHPMvQNHWul6MYlrRTAOKn03rOe4A8O3CLWhNf4YHBqq2HJKKC+sfqpxiBY52pNeesD6jIiLDz8jg==}
+
   statuses@2.0.2:
     resolution: {integrity: sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==}
     engines: {node: '>= 0.8'}
@@ -3328,6 +3352,9 @@ packages:
   supports-color@8.1.1:
     resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
     engines: {node: '>=10'}
+
+  svix@1.88.0:
+    resolution: {integrity: sha512-vm/JrrUd3bVyBE+3L33TIyVSs8gS5fYx7lrISvKlDJXTYX1ACH4REX8P1tHxsSKoZi/rvifM1t0XRc5Vc45THw==}
 
   swagger-ui-dist@5.31.0:
     resolution: {integrity: sha512-zSUTIck02fSga6rc0RZP3b7J7wgHXwLea8ZjgLA3Vgnb8QeOl3Wou2/j5QkzSGeoz6HusP/coYuJl33aQxQZpg==}
@@ -3541,6 +3568,10 @@ packages:
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+
+  uuid@10.0.0:
+    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    hasBin: true
 
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
@@ -4509,27 +4540,27 @@ snapshots:
     dependencies:
       consola: 3.4.2
 
-  '@odysseon/whoami-adapter-argon2@0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)':
+  '@odysseon/whoami-adapter-argon2@10.0.0(@odysseon/whoami-core@10.0.0)':
     dependencies:
-      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
+      '@odysseon/whoami-core': 10.0.0
       argon2: 0.44.0
 
-  '@odysseon/whoami-adapter-jose@0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)':
+  '@odysseon/whoami-adapter-jose@10.0.0(@odysseon/whoami-core@10.0.0)':
     dependencies:
-      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
+      '@odysseon/whoami-core': 10.0.0
       jose: 6.2.2
 
-  '@odysseon/whoami-adapter-nestjs@0.0.0-dev-20260409102807(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(@odysseon/whoami-core@0.0.0-dev-20260408132748)':
+  '@odysseon/whoami-adapter-nestjs@10.0.0(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.18)(@odysseon/whoami-core@10.0.0)':
     dependencies:
       '@nestjs/common': 11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.18(@nestjs/common@11.1.18(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.18)(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
+      '@odysseon/whoami-core': 10.0.0
 
-  '@odysseon/whoami-adapter-webcrypto@0.0.0-dev-20260408132748(@odysseon/whoami-core@0.0.0-dev-20260408132748)':
+  '@odysseon/whoami-adapter-webcrypto@10.0.0(@odysseon/whoami-core@10.0.0)':
     dependencies:
-      '@odysseon/whoami-core': 0.0.0-dev-20260408132748
+      '@odysseon/whoami-core': 10.0.0
 
-  '@odysseon/whoami-core@0.0.0-dev-20260408132748': {}
+  '@odysseon/whoami-core@10.0.0': {}
 
   '@paralleldrive/cuid2@2.3.1':
     dependencies:
@@ -4712,6 +4743,8 @@ snapshots:
   '@sinonjs/fake-timers@15.3.0':
     dependencies:
       '@sinonjs/commons': 3.0.1
+
+  '@stablelib/base64@1.0.1': {}
 
   '@standard-schema/spec@1.1.0': {}
 
@@ -5806,6 +5839,8 @@ snapshots:
 
   fast-safe-stringify@2.1.1: {}
 
+  fast-sha256@1.3.0: {}
+
   fast-uri@3.1.0: {}
 
   fb-watchman@2.0.2:
@@ -6847,6 +6882,8 @@ snapshots:
 
   pluralize@8.0.0: {}
 
+  postal-mime@2.7.4: {}
+
   postgres-array@2.0.0: {}
 
   postgres-array@3.0.4: {}
@@ -6951,6 +6988,11 @@ snapshots:
   require-directory@2.1.1: {}
 
   require-from-string@2.0.2: {}
+
+  resend@6.10.0:
+    dependencies:
+      postal-mime: 2.7.4
+      svix: 1.88.0
 
   resolve-cwd@3.0.0:
     dependencies:
@@ -7105,6 +7147,11 @@ snapshots:
     dependencies:
       escape-string-regexp: 2.0.0
 
+  standardwebhooks@1.0.0:
+    dependencies:
+      '@stablelib/base64': 1.0.1
+      fast-sha256: 1.3.0
+
   statuses@2.0.2: {}
 
   std-env@3.10.0: {}
@@ -7181,6 +7228,11 @@ snapshots:
   supports-color@8.1.1:
     dependencies:
       has-flag: 4.0.0
+
+  svix@1.88.0:
+    dependencies:
+      standardwebhooks: 1.0.0
+      uuid: 10.0.0
 
   swagger-ui-dist@5.31.0:
     dependencies:
@@ -7393,6 +7445,8 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   utils-merge@1.0.1: {}
+
+  uuid@10.0.0: {}
 
   v8-compile-cache-lib@3.0.1: {}
 

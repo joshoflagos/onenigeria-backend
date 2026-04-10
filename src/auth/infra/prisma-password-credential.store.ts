@@ -56,6 +56,13 @@ export class PrismaPasswordCredentialStore implements PasswordCredentialStore {
     });
   }
 
+  async update(credentialId: CredentialId, newHash: string): Promise<void> {
+    await this.prisma.credential.update({
+      where: { id: credentialId.value, kind: 'password' },
+      data: { hash: newHash },
+    });
+  }
+
   async delete(credentialId: CredentialId): Promise<void> {
     await this.prisma.credential
       .delete({ where: { id: credentialId.value } })
