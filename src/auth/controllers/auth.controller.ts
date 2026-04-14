@@ -1,4 +1,3 @@
-// src/auth/controllers/auth.controller.ts
 import {
   Body,
   Controller,
@@ -13,7 +12,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Public, AUTH_METHODS, CurrentIdentity } from '@odysseon/whoami-adapter-nestjs';
-import type { AuthMethods, Receipt } from '@odysseon/whoami-core';
+import type { AnyAuthMethods, Receipt } from '@odysseon/whoami-core';
 import type { Request, Response } from 'express';
 import {
   LoginDto,
@@ -31,7 +30,7 @@ import { VerifyEmailUseCase } from '../../verification/usecases/verify-email.use
 @Controller('auth')
 export class AuthController {
   constructor(
-    @Inject(AUTH_METHODS) private readonly auth: AuthMethods,
+    @Inject(AUTH_METHODS) private readonly auth: AnyAuthMethods,
     private readonly sendVerificationEmail: SendVerificationEmailUseCase,
     private readonly verifyEmailUseCase: VerifyEmailUseCase,
     private readonly prisma: PrismaService,
@@ -132,11 +131,11 @@ export class AuthController {
       throw new UnauthorizedException('Invalid authorization header');
     }
 
-    if (!this.auth.updatePassword) {
+    if (!this.auth.changePassword) {
       throw new Error('Password authentication is not configured');
     }
 
-    await this.auth.updatePassword({
+    await this.auth.changePassword({
       receiptToken: token,
       currentPassword: dto.currentPassword,
       newPassword: dto.newPassword,

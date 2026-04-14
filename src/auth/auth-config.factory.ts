@@ -13,13 +13,14 @@ import { PrismaOAuthCredentialStore } from './infra/prisma-oauth-credential.stor
 import { init } from '@paralleldrive/cuid2';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma.service';
+import { AuthConfig } from '@odysseon/whoami-core';
 
 const createId = init({ length: 24 });
 
 export const createWhoamiOptions = async (
   configService: ConfigService,
   prisma: PrismaService,
-) => {
+): Promise<AuthConfig> => {
   const accountRepo = new PrismaAccountRepository(prisma);
   const passwordStore = new PrismaPasswordCredentialStore(prisma);
   const oauthStore = new PrismaOAuthCredentialStore(prisma);
@@ -43,15 +44,13 @@ export const createWhoamiOptions = async (
 
   return {
     accountRepo,
-    tokenSigner: new IssueReceiptUseCase({
-      signer,
-      tokenLifespanMinutes,
-    }),
-    verifyReceipt: new VerifyReceiptUseCase(verifier),
+    receiptSigner: signer,
+    receiptVerifier: verifier,
+    tokenLifespanMinutes,
     logger: console,
-    generateId: () => createId(),
+    idGenerator: () => createId(),
     password: {
-      hashManager: hasher,
+      passwordHasher: hasher,
       passwordStore,
     },
     oauth: {
