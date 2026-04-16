@@ -7,20 +7,27 @@ import { StorageProvider } from './ports/provider.port';
 @Injectable()
 export class ImageStorageService {
   private allowedExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
-  private allowedMimeTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+  private allowedMimeTypes = [
+    'image/png',
+    'image/jpeg',
+    'image/gif',
+    'image/webp',
+  ];
 
-  constructor(private readonly storageProvider: StorageProvider) { }
+  constructor(private readonly storageProvider: StorageProvider) {}
 
   async handleImageUpload(originalFileName: string, fileData: Buffer) {
     const extension = path.extname(originalFileName).toLowerCase();
 
     if (!this.allowedExtensions.includes(extension)) {
-      throw new BadRequestException(`${extension} is not a supported image format.`);
+      throw new BadRequestException(
+        `${extension} is not a supported image format.`,
+      );
     }
 
     const fileInfo = await fileTypeFromBuffer(fileData);
     if (!fileInfo || !this.allowedMimeTypes.includes(fileInfo.mime)) {
-      throw new BadRequestException("The file content is not a valid image.");
+      throw new BadRequestException('The file content is not a valid image.');
     }
 
     const safeFileName = `${uuidv4()}${extension}`;

@@ -7,9 +7,10 @@ import type { MailerPort } from '../../mailer/ports/mailer.port';
 export class SendPasswordResetEmailUseCase {
   constructor(
     @Inject('MailerPort') private readonly mailer: MailerPort,
-    @Inject('ResetTokenStorePort') private readonly tokenStore: ResetTokenStorePort,
+    @Inject('ResetTokenStorePort')
+    private readonly tokenStore: ResetTokenStorePort,
     private readonly prisma: PrismaService,
-  ) { }
+  ) {}
 
   async execute(email: string): Promise<void> {
     const account = await this.prisma.account.findUnique({

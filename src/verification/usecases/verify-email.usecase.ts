@@ -4,7 +4,7 @@ import type { OtpStorePort } from '../ports/otp-store.port';
 export class VerifyEmailUseCase {
   constructor(
     @Inject('OtpStorePort') private readonly otpStore: OtpStorePort,
-  ) { }
+  ) {}
 
   async execute(accountId: string, otp: string): Promise<void> {
     const isValid = await this.otpStore.findValid(accountId, otp);

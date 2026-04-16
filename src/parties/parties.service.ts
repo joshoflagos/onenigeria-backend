@@ -6,7 +6,7 @@ import { Prisma } from '../generated/prisma/client';
 
 @Injectable()
 export class PartiesService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   create(dto: CreatePartyDto) {
     return this.prisma.party.create({
@@ -44,7 +44,10 @@ export class PartiesService {
         data: updateData,
       });
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
         throw new NotFoundException('Party not found');
       }
       throw error;
@@ -57,7 +60,10 @@ export class PartiesService {
         where: { id },
       });
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
         throw new NotFoundException('Party not found');
       }
       throw error;

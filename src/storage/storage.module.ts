@@ -15,9 +15,6 @@ import { ImageStorageService } from './image-storage.service';
       useClass: CloudinaryStorageProvider,
     },
   ],
-  exports: [
-    StorageProvider,
-    ImageStorageService,
-  ],
+  exports: [StorageProvider, ImageStorageService],
 })
-export class StorageModule { }
+export class StorageModule {}

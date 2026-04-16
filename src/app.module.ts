@@ -11,7 +11,7 @@ import { PasswordResetModule } from './password-reset/password-reset.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
     PrismaModule,
     AuthModule,
@@ -21,4 +21,4 @@ import { PasswordResetModule } from './password-reset/password-reset.module';
     PasswordResetModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

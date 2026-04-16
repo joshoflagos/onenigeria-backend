@@ -39,8 +39,6 @@ import { VerificationModule } from '../verification/verification.module';
     },
     PrismaPasswordCredentialStore,
   ],
-  exports: [
-    PrismaPasswordCredentialStore,
-  ]
+  exports: [PrismaPasswordCredentialStore],
 })
-export class AuthModule { }
+export class AuthModule {}
