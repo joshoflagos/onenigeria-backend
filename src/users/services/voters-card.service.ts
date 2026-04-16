@@ -6,16 +6,20 @@ import { ImageStorageService } from '../../storage/image-storage.service';
 export class VotersCardService {
   constructor(
     private readonly imageUploadService: ImageStorageService,
-    private readonly prisma: PrismaService
-  ) { }
+    private readonly prisma: PrismaService,
+  ) {}
 
-  async updateVotersCard(accountId: string, originalFileName: string, fileData: Buffer) {
+  async updateVotersCard(
+    accountId: string,
+    originalFileName: string,
+    fileData: Buffer,
+  ) {
     const user = await this.prisma.oneNigeriaUser.findUnique({
-      where: { accountId }
+      where: { accountId },
     });
 
     if (!user) {
-      throw new NotFoundException("User not found.");
+      throw new NotFoundException('User not found.');
     }
 
     const oldVotersCardUrl = user.votersCard;
@@ -23,7 +27,7 @@ export class VotersCardService {
     // Upload new image
     const uploadResult = await this.imageUploadService.handleImageUpload(
       originalFileName,
-      fileData
+      fileData,
     );
 
     // Update database
@@ -34,9 +38,14 @@ export class VotersCardService {
 
     // Clean up old image safely
     if (oldVotersCardUrl) {
-      this.imageUploadService.handleImageDeletion(oldVotersCardUrl).catch(err => {
-        console.error("Non-fatal error: Failed to delete old voters card", err);
-      });
+      this.imageUploadService
+        .handleImageDeletion(oldVotersCardUrl)
+        .catch((err) => {
+          console.error(
+            'Non-fatal error: Failed to delete old voters card',
+            err,
+          );
+        });
     }
 
     return updatedUser;

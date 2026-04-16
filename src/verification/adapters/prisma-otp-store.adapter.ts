@@ -2,7 +2,7 @@ import { OtpStorePort } from '../ports/otp-store.port';
 import { PrismaService } from '../../prisma.service';
 
 export class PrismaOtpStoreAdapter implements OtpStorePort {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async save(accountId: string, otp: string, expiresAt: Date): Promise<void> {
     await this.prisma.oneNigeriaUser.upsert({

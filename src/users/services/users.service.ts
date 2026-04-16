@@ -6,7 +6,7 @@ import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async findById(accountId: string) {
     const user = await this.prisma.oneNigeriaUser.findUnique({
@@ -50,7 +50,10 @@ export class UsersService {
         data: updateData,
       });
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
         throw new NotFoundException('User profile not found');
       }
       throw error;

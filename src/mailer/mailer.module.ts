@@ -10,7 +10,10 @@ import { ResendMailerAdapter } from './adapters/resend-mailer.adapter';
       provide: 'MailerPort',
       useFactory: (config: ConfigService) => {
         const apiKey = config.getOrThrow('RESEND_API_KEY');
-        const from = config.get('MAIL_FROM', 'OneNigeria <noreply@onenigeria.ng>');
+        const from = config.get(
+          'MAIL_FROM',
+          'OneNigeria <noreply@onenigeria.ng>',
+        );
         return new ResendMailerAdapter(new Resend(apiKey), from);
       },
       inject: [ConfigService],
@@ -18,4 +21,4 @@ import { ResendMailerAdapter } from './adapters/resend-mailer.adapter';
   ],
   exports: ['MailerPort'],
 })
-export class MailerModule { }
+export class MailerModule {}

@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
+import { StorageModule } from '../storage/storage.module';
+import { UsersController } from './controllers/users.controller';
+import { UsersService } from './services/users.service';
+import { UserAvatarService } from './services/avatar.service';
+import { AvatarController } from './controllers/avatar.controller';
+import { VotersCardService } from './services/voters-card.service';
+import { VotersCardController } from './controllers/voters-card.controller';
 
 @Module({
-  controllers: [UsersController],
-  providers: [UsersService],
+  imports: [StorageModule],
+  controllers: [UsersController, AvatarController, VotersCardController],
+  providers: [UsersService, UserAvatarService, VotersCardService],
 })
 export class UsersModule {}

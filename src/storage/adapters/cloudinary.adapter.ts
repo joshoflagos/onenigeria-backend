@@ -1,4 +1,8 @@
-import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { v2 as Cloudinary } from 'cloudinary';
 import * as streamifier from 'streamifier';
 import * as path from 'path';
@@ -9,7 +13,7 @@ import { StorageProvider } from '../ports/provider.port';
 export class CloudinaryStorageProvider implements StorageProvider {
   constructor(
     @Inject(CLOUDINARY) private readonly cloudinary: typeof Cloudinary,
-  ) { }
+  ) {}
 
   async upload(fileName: string, fileData: Buffer): Promise<{ url: string }> {
     return new Promise((resolve, reject) => {
@@ -20,10 +24,12 @@ export class CloudinaryStorageProvider implements StorageProvider {
         (error, result) => {
           if (error || !result) {
             console.error('Cloudinary Upload Error:', error);
-            return reject(new InternalServerErrorException('Failed to upload image.'));
+            return reject(
+              new InternalServerErrorException('Failed to upload image.'),
+            );
           }
           resolve({ url: result.secure_url });
-        }
+        },
       );
 
       streamifier.createReadStream(fileData).pipe(uploadStream);

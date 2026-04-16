@@ -11,7 +11,7 @@ export class PasswordResetController {
   constructor(
     private readonly sendPasswordResetEmail: SendPasswordResetEmailUseCase,
     private readonly resetPasswordUseCase: ResetPasswordUseCase,
-  ) { }
+  ) {}
 
   @Public()
   @Post('forgot-password')

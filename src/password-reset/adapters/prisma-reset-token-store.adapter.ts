@@ -2,7 +2,7 @@ import { PrismaService } from '../../prisma.service';
 import { ResetTokenStorePort } from '../ports/reset-token-store.port';
 
 export class PrismaResetTokenStoreAdapter implements ResetTokenStorePort {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async save(accountId: string, token: string, expiresAt: Date): Promise<void> {
     await this.prisma.oneNigeriaUser.upsert({
@@ -12,7 +12,9 @@ export class PrismaResetTokenStoreAdapter implements ResetTokenStorePort {
     });
   }
 
-  async findValid(token: string): Promise<{ accountId: string; email: string } | null> {
+  async findValid(
+    token: string,
+  ): Promise<{ accountId: string; email: string } | null> {
     const user = await this.prisma.oneNigeriaUser.findFirst({
       where: {
         resetToken: token,

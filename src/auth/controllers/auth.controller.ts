@@ -10,9 +10,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Public, AUTH_METHODS, CurrentIdentity } from '@odysseon/whoami-adapter-nestjs';
-import type { AnyAuthMethods, Receipt } from '@odysseon/whoami-core';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Public,
+  AUTH_METHODS,
+  CurrentIdentity,
+  WhoamiAuthGuard,
+} from '@odysseon/whoami-adapter-nestjs';
+import type { AccountId, AnyAuthMethods, Receipt } from '@odysseon/whoami-core';
 import type { Request, Response } from 'express';
 import {
   LoginDto,
@@ -34,7 +39,7 @@ export class AuthController {
     private readonly sendVerificationEmail: SendVerificationEmailUseCase,
     private readonly verifyEmailUseCase: VerifyEmailUseCase,
     private readonly prisma: PrismaService,
-  ) { }
+  ) {}
 
   @Public()
   @Post('register')
@@ -45,7 +50,10 @@ export class AuthController {
       password: dto.password,
     });
 
-    await this.sendVerificationEmail.execute(receipt.accountId.value, dto.email);
+    await this.sendVerificationEmail.execute(
+      receipt.accountId.value,
+      dto.email,
+    );
 
     return { token: receipt.token };
   }
@@ -111,11 +119,15 @@ export class AuthController {
       await this.sendVerificationEmail.execute(account.id, dto.email);
     }
 
-    return { message: 'If an account exists, a verification email has been sent' };
+    return {
+      message: 'If an account exists, a verification email has been sent',
+    };
   }
 
   @Post('change-password')
   @ApiOperation({ summary: 'Change password (authenticated)' })
+  @ApiBearerAuth()
+  @UseGuards(WhoamiAuthGuard)
   async changePassword(
     @Req() req: Request,
     @Body() dto: ChangePasswordDto,
@@ -146,14 +158,17 @@ export class AuthController {
 
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
-  async getMe(@CurrentIdentity('accountId') accountId: string) {
+  @ApiBearerAuth()
+  @UseGuards(WhoamiAuthGuard)
+  async getMe(@CurrentIdentity('accountId') accountId: AccountId) {
     const account = await this.prisma.account.findUnique({
-      where: { id: accountId },
+      where: { id: accountId.value },
       include: { oneNigeriaUser: true },
     });
 
     const profile = account?.oneNigeriaUser;
-    const { otp, otpExpiry, resetToken, resetTokenExpiry, ...safeProfile } = profile || {};
+    const { otp, otpExpiry, resetToken, resetTokenExpiry, ...safeProfile } =
+      profile || {};
 
     return {
       id: account?.id,

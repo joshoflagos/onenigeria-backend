@@ -7,7 +7,7 @@ export class SendVerificationEmailUseCase {
   constructor(
     @Inject('MailerPort') private readonly mailer: MailerPort,
     @Inject('OtpStorePort') private readonly otpStore: OtpStorePort,
-  ) { }
+  ) {}
 
   async execute(accountId: string, email: string): Promise<void> {
     const otp = generateOtp();

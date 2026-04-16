@@ -5,7 +5,7 @@ export class ResendMailerAdapter implements MailerPort {
   constructor(
     private readonly resend: Resend,
     private readonly from: string,
-  ) { }
+  ) {}
 
   async send(options: SendEmailOptions): Promise<void> {
     await this.resend.emails.send({

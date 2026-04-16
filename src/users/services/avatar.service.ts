@@ -6,14 +6,20 @@ import { ImageStorageService } from '../../storage/image-storage.service';
 export class UserAvatarService {
   constructor(
     private readonly imageUploadService: ImageStorageService,
-    private readonly prisma: PrismaService
-  ) { }
+    private readonly prisma: PrismaService,
+  ) {}
 
-  async updateUserAvatar(accountId: string, originalFileName: string, fileData: Buffer) {
-    const user = await this.prisma.oneNigeriaUser.findUnique({ where: { accountId } });
+  async updateUserAvatar(
+    accountId: string,
+    originalFileName: string,
+    fileData: Buffer,
+  ) {
+    const user = await this.prisma.oneNigeriaUser.findUnique({
+      where: { accountId },
+    });
 
     if (!user) {
-      throw new NotFoundException("User not found.");
+      throw new NotFoundException('User not found.');
     }
 
     const oldAvatarId = user.avatar;
@@ -21,7 +27,7 @@ export class UserAvatarService {
     // Upload new image
     const uploadResult = await this.imageUploadService.handleImageUpload(
       originalFileName,
-      fileData
+      fileData,
     );
 
     // Update database
@@ -32,8 +38,8 @@ export class UserAvatarService {
 
     // Clean up old image safely
     if (oldAvatarId) {
-      this.imageUploadService.handleImageDeletion(oldAvatarId).catch(err => {
-        console.error("Non-fatal error: Failed to delete old avatar", err);
+      this.imageUploadService.handleImageDeletion(oldAvatarId).catch((err) => {
+        console.error('Non-fatal error: Failed to delete old avatar', err);
       });
     }
 

@@ -17,11 +17,9 @@ import { PasswordResetController } from './password-reset.controller';
     },
     SendPasswordResetEmailUseCase,
     ResetPasswordUseCase,
-    Argon2PasswordHasher
+    Argon2PasswordHasher,
   ],
-  controllers: [
-    PasswordResetController,
-  ],
+  controllers: [PasswordResetController],
   exports: [SendPasswordResetEmailUseCase, ResetPasswordUseCase],
 })
-export class PasswordResetModule { }
+export class PasswordResetModule {}
