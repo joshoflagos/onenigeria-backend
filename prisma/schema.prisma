@@ -45,6 +45,7 @@ model OneNigeriaUser {
 
   // Onboarding fields (from old TypeORM entity)
   avatar               String?
+  votersCard           String?
   fullname             String?
   username             String?   @unique
   phone1               String?
