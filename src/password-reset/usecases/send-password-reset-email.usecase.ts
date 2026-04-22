@@ -2,11 +2,11 @@ import { Inject } from '@nestjs/common';
 import type { ResetTokenStorePort } from '../ports/reset-token-store.port';
 import { PrismaService } from '../../prisma.service';
 import { generateResetToken } from '../../shared/utils/otp';
-import type { MailerPort } from '../../mailer/ports/mailer.port';
+import { MAILER_PORT, type MailerPort } from '../../mailer/ports/mailer.port';
 
 export class SendPasswordResetEmailUseCase {
   constructor(
-    @Inject('MailerPort') private readonly mailer: MailerPort,
+    @Inject(MAILER_PORT) private readonly mailer: MailerPort,
     @Inject('ResetTokenStorePort')
     private readonly tokenStore: ResetTokenStorePort,
     private readonly prisma: PrismaService,

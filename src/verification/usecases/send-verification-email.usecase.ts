@@ -1,11 +1,11 @@
 import { Inject } from '@nestjs/common';
 import type { OtpStorePort } from '../ports/otp-store.port';
 import { generateOtp } from '../../shared/utils/otp';
-import type { MailerPort } from '../../mailer/ports/mailer.port';
+import { MAILER_PORT, type MailerPort } from '../../mailer/ports/mailer.port';
 
 export class SendVerificationEmailUseCase {
   constructor(
-    @Inject('MailerPort') private readonly mailer: MailerPort,
+    @Inject(MAILER_PORT) private readonly mailer: MailerPort,
     @Inject('OtpStorePort') private readonly otpStore: OtpStorePort,
   ) {}
 

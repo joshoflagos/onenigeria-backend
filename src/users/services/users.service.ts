@@ -3,10 +3,14 @@ import { OnboardingDto } from '../dto/onboarding.dto';
 import { UpdateProfileDto } from '../dto/update-profile.dto';
 import { Prisma } from '../../generated/prisma/client';
 import { PrismaService } from '../../prisma.service';
+import { SendWelcomeEmailUseCase } from '../../mailer/usecases/send-welcome-mail.usecase';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly sendWelcomeEmail: SendWelcomeEmailUseCase,
+  ) {}
 
   async findById(accountId: string) {
     const user = await this.prisma.oneNigeriaUser.findUnique({
@@ -25,7 +29,7 @@ export class UsersService {
       onboarded: true,
     };
 
-    return this.prisma.oneNigeriaUser.upsert({
+    const user = await this.prisma.oneNigeriaUser.upsert({
       where: { accountId },
       create: {
         accountId,
@@ -33,6 +37,20 @@ export class UsersService {
       },
       update: data,
     });
+
+    // Get account email for welcome email
+    const account = await this.prisma.account.findUnique({
+      where: { id: accountId },
+    });
+
+    if (account) {
+      await this.sendWelcomeEmail.execute(
+        account.email,
+        user.fullname || 'Supporter',
+      );
+    }
+
+    return user;
   }
 
   async updateProfile(accountId: string, dto: UpdateProfileDto) {

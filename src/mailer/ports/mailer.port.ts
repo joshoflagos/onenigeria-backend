@@ -1,3 +1,5 @@
+export const MAILER_PORT = Symbol('MAILER_PORT');
+
 export interface SendEmailOptions {
   to: string;
   subject: string;

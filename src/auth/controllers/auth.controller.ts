@@ -30,6 +30,7 @@ import { ResendVerificationDto } from '../dto/resend-verification.dto';
 import { PrismaService } from '../../prisma.service';
 import { SendVerificationEmailUseCase } from '../../verification/usecases/send-verification-email.usecase';
 import { VerifyEmailUseCase } from '../../verification/usecases/verify-email.usecase';
+import { SendOnboardingReminderUseCase } from '../../mailer/usecases/send-onboarding-reminder.usecase';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -39,6 +40,7 @@ export class AuthController {
     private readonly sendVerificationEmail: SendVerificationEmailUseCase,
     private readonly verifyEmailUseCase: VerifyEmailUseCase,
     private readonly prisma: PrismaService,
+    private readonly sendOnboardingReminder: SendOnboardingReminderUseCase,
   ) {}
 
   @Public()
@@ -77,7 +79,26 @@ export class AuthController {
     // Passport handles the redirect to Google
   }
 
-  @Public()
+  @Post('verify-email')
+  @ApiOperation({ summary: 'Verify email with OTP' })
+  async verifyEmail(
+    @CurrentIdentity('accountId') accountId: string,
+    @Body() dto: VerifyEmailDto,
+  ) {
+    await this.verifyEmailUseCase.execute(accountId, dto.otp);
+
+    // Get user email for sending onboarding reminder
+    const account = await this.prisma.account.findUnique({
+      where: { id: accountId },
+    });
+
+    if (account) {
+      await this.sendOnboardingReminder.execute(account.email);
+    }
+
+    return { message: 'Email verified successfully' };
+  }
+
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   @ApiOperation({ summary: 'Google OAuth callback' })
@@ -94,17 +115,16 @@ export class AuthController {
       update: { isVerified: true },
     });
 
-    res.json({ token: receipt.token });
-  }
+    // Get account email
+    const account = await this.prisma.account.findUnique({
+      where: { id: receipt.accountId.value },
+    });
 
-  @Post('verify-email')
-  @ApiOperation({ summary: 'Verify email with OTP' })
-  async verifyEmail(
-    @CurrentIdentity('accountId') accountId: string,
-    @Body() dto: VerifyEmailDto,
-  ) {
-    await this.verifyEmailUseCase.execute(accountId, dto.otp);
-    return { message: 'Email verified successfully' };
+    if (account) {
+      await this.sendOnboardingReminder.execute(account.email);
+    }
+
+    res.json({ token: receipt.token });
   }
 
   @Public()

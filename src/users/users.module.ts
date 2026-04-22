@@ -6,9 +6,10 @@ import { UserAvatarService } from './services/avatar.service';
 import { AvatarController } from './controllers/avatar.controller';
 import { VotersCardService } from './services/voters-card.service';
 import { VotersCardController } from './controllers/voters-card.controller';
+import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
-  imports: [StorageModule],
+  imports: [StorageModule, MailerModule],
   controllers: [UsersController, AvatarController, VotersCardController],
   providers: [UsersService, UserAvatarService, VotersCardService],
 })

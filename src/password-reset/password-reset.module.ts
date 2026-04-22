@@ -5,8 +5,10 @@ import { ResetPasswordUseCase } from './usecases/reset-password.usecase';
 import { PrismaResetTokenStoreAdapter } from './adapters/prisma-reset-token-store.adapter';
 import { Argon2PasswordHasher } from '@odysseon/whoami-adapter-argon2';
 import { PasswordResetController } from './password-reset.controller';
+import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
+  imports: [MailerModule],
   providers: [
     PrismaService,
     {

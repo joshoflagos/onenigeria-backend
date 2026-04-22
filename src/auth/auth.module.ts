@@ -13,10 +13,12 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { createWhoamiOptions } from './auth-config.factory';
 import { PrismaPasswordCredentialStore } from './infra/prisma-password-credential.store';
 import { VerificationModule } from '../verification/verification.module';
+import { MailerModule } from '../mailer/mailer.module';
 
 @Global()
 @Module({
   imports: [
+    MailerModule,
     VerificationModule,
     ConfigModule,
     PassportModule,

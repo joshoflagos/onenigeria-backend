@@ -3,8 +3,10 @@ import { PrismaService } from '../prisma.service';
 import { PrismaOtpStoreAdapter } from './adapters/prisma-otp-store.adapter';
 import { SendVerificationEmailUseCase } from './usecases/send-verification-email.usecase';
 import { VerifyEmailUseCase } from './usecases/verify-email.usecase';
+import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
+  imports: [MailerModule],
   providers: [
     PrismaService,
     {
