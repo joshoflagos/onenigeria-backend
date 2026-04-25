@@ -4,9 +4,9 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma.module';
 import { UsersModule } from './users/users.module';
 import { PartiesModule } from './parties/parties.module';
-import { VerificationModule } from './verification/verification.module';
 import { MailerModule } from './mailer/mailer.module';
 import { PasswordResetModule } from './password-reset/password-reset.module';
+import { HealthController } from './health/health.controller';
 
 @Module({
   imports: [
@@ -20,5 +20,6 @@ import { PasswordResetModule } from './password-reset/password-reset.module';
     MailerModule,
     PasswordResetModule,
   ],
+  controllers: [HealthController],
 })
 export class AppModule {}
